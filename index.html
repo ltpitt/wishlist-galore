@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="My Italian Wishlist - Items to bring from Italy">
-    <title>Italian Wishlist 🇮🇹</title>
+    <meta name="description" content="Lista della Spesa dall'Italia - Cosa portare e cosa non portare">
+    <title>Lista della Spesa 🇮🇹</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -88,6 +88,16 @@
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
             border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .wishlist-item.checked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+        
+        .wishlist-item.checked .item-name {
+            text-decoration: line-through;
         }
         
         .wishlist-item:hover {
@@ -143,6 +153,67 @@
             background: var(--secondary-color);
             color: white;
             transform: scale(1.05);
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+        
+        .checkbox-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .nav-tabs .nav-link {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px 10px 0 0;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--text-dark);
+            background: white;
+            border-color: white white transparent;
+        }
+        
+        .tab-content {
+            margin-top: 1rem;
+        }
+        
+        .list-not-to-bring .wishlist-item {
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .list-not-to-bring .item-icon {
+            color: var(--secondary-color);
         }
         
         .loading {
@@ -218,19 +289,46 @@
     <div class="container">
         <header class="animate__animated animate__fadeInDown">
             <span class="flag-emoji">🇮🇹</span>
-            <h1>Italian Wishlist</h1>
-            <p class="subtitle">Cose da portare dall'Italia</p>
+            <h1>Lista della Spesa dall'Italia</h1>
+            <p class="subtitle">Cosa portare e cosa lasciare a casa</p>
         </header>
         
-        <div id="wishlist-container">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading wishlist...</p>
+        <!-- Tabs for switching between lists -->
+        <ul class="nav nav-tabs" id="wishlistTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="to-bring-tab" data-bs-toggle="tab" data-bs-target="#to-bring" type="button" role="tab">
+                    ✅ Da Portare
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="not-to-bring-tab" data-bs-toggle="tab" data-bs-target="#not-to-bring" type="button" role="tab">
+                    ⛔ Da NON Portare
+                </button>
+            </li>
+        </ul>
+        
+        <!-- Tab content -->
+        <div class="tab-content" id="wishlistTabContent">
+            <div class="tab-pane fade show active" id="to-bring" role="tabpanel">
+                <div id="to-bring-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Caricamento lista...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="not-to-bring" role="tabpanel">
+                <div id="not-to-bring-container" class="list-not-to-bring">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Caricamento lista...</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <footer class="animate__animated animate__fadeIn animate__delay-1s">
-            <p>Made with ❤️ and a bit of nostalgia</p>
+            <p>Fatto con ❤️ e un po' di nostalgia</p>
         </footer>
     </div>
     
@@ -239,22 +337,22 @@
     
     <!-- Main JavaScript -->
     <script>
-        // Fetch and display wishlist items
-        async function loadWishlist() {
-            const container = document.getElementById('wishlist-container');
+        // Load and display both wishlists
+        async function loadWishlist(jsonFile, containerId, listType) {
+            const container = document.getElementById(containerId);
             
             try {
-                const response = await fetch('items.json');
+                const response = await fetch(jsonFile);
                 
                 if (!response.ok) {
-                    throw new Error('Failed to load wishlist items');
+                    throw new Error('Impossibile caricare gli elementi');
                 }
                 
                 const data = await response.json();
                 const items = data.items || [];
                 
                 if (items.length === 0) {
-                    container.innerHTML = '<div class="error">No items found in the wishlist.</div>';
+                    container.innerHTML = '<div class="error">Nessun elemento trovato nella lista.</div>';
                     return;
                 }
                 
@@ -263,16 +361,16 @@
                 
                 // Create item cards with staggered animation
                 items.forEach((item, index) => {
-                    const itemCard = createItemCard(item, index);
+                    const itemCard = createItemCard(item, index, listType);
                     container.appendChild(itemCard);
                 });
                 
             } catch (error) {
-                console.error('Error loading wishlist:', error);
+                console.error('Errore nel caricamento della lista:', error);
                 container.innerHTML = `
                     <div class="error animate__animated animate__shakeX">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <p>Oops! Could not load the wishlist.</p>
+                        <p>Oops! Impossibile caricare la lista.</p>
                         <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
                     </div>
                 `;
@@ -280,15 +378,24 @@
         }
         
         // Create a card for a wishlist item
-        function createItemCard(item, index) {
+        function createItemCard(item, index, listType) {
             const card = document.createElement('div');
             card.className = 'wishlist-item animate__animated animate__fadeInUp';
             card.style.animationDelay = `${index * 0.1}s`;
             
             const icon = item.icon || 'fa-gift';
-            const name = item.name || 'Unknown Item';
+            const name = item.name || 'Elemento Sconosciuto';
             const description = item.description || '';
             const link = item.link || '';
+            
+            // Generate unique ID for the item based on list type and name
+            const itemId = `${listType}-${name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}`;
+            
+            // Check if item is already checked in localStorage
+            const isChecked = localStorage.getItem(itemId) === 'true';
+            if (isChecked) {
+                card.classList.add('checked');
+            }
             
             card.innerHTML = `
                 <div class="item-header">
@@ -299,9 +406,27 @@
                 </div>
                 ${description ? `<p class="item-description">${escapeHtml(description)}</p>` : ''}
                 ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="item-link">
-                    <i class="fas fa-external-link-alt"></i> View Details
+                    <i class="fas fa-external-link-alt"></i> Vedi Dettagli
                 </a>` : ''}
+                <div class="checkbox-container">
+                    <input type="checkbox" id="${itemId}" class="custom-checkbox" ${isChecked ? 'checked' : ''}>
+                    <label for="${itemId}" class="checkbox-label">
+                        ${listType === 'to-bring' ? 'Portato ✓' : 'Ricordato ✓'}
+                    </label>
+                </div>
             `;
+            
+            // Add checkbox event listener
+            const checkbox = card.querySelector(`#${itemId}`);
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    card.classList.add('checked');
+                    localStorage.setItem(itemId, 'true');
+                } else {
+                    card.classList.remove('checked');
+                    localStorage.setItem(itemId, 'false');
+                }
+            });
             
             return card;
         }
@@ -313,8 +438,11 @@
             return div.innerHTML;
         }
         
-        // Load wishlist on page load
-        document.addEventListener('DOMContentLoaded', loadWishlist);
+        // Load both wishlists on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWishlist('items.json', 'to-bring-container', 'to-bring');
+            loadWishlist('items-not-to-bring.json', 'not-to-bring-container', 'not-to-bring');
+        });
     </script>
 </body>
 </html>

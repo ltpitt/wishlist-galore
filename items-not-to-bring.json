@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "name": "Vestiti pesanti",
+      "description": "Abbiamo già molti vestiti pesanti qui in Olanda. Non serve portare giacche o cappotti.",
+      "icon": "fa-solid fa-vest"
+    },
+    {
+      "name": "Libri di carta",
+      "description": "Preferiamo i libri digitali per risparmiare spazio. Non portare libri cartacei pesanti.",
+      "icon": "fa-solid fa-book"
+    },
+    {
+      "name": "Prodotti per la casa",
+      "description": "Detersivi, shampoo e prodotti per la casa li abbiamo già. Non serve portarli.",
+      "icon": "fa-solid fa-spray-can-sparkles"
+    },
+    {
+      "name": "Gadget elettronici",
+      "description": "Abbiamo già caricatori, cavi e altri gadget elettronici. Non portare duplicati.",
+      "icon": "fa-solid fa-plug"
+    },
+    {
+      "name": "Souvenir turistici",
+      "description": "Non servono souvenir o oggetti decorativi. Abbiamo poco spazio in casa.",
+      "icon": "fa-solid fa-gifts"
+    },
+    {
+      "name": "Riviste e giornali vecchi",
+      "description": "Le notizie le leggiamo online. Non portare riviste o giornali di settimane fa.",
+      "icon": "fa-solid fa-newspaper"
+    },
+    {
+      "name": "Oggetti fragili",
+      "description": "Evita di portare oggetti fragili che potrebbero rompersi durante il viaggio.",
+      "icon": "fa-solid fa-wine-glass-crack"
+    },
+    {
+      "name": "Medicine comuni",
+      "description": "Le medicine di base le troviamo qui in farmacia. Porta solo quelle specifiche se necessario.",
+      "icon": "fa-solid fa-pills"
+    }
+  ]
+}
