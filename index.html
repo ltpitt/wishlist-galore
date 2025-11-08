@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Italian Wishlist - Items to bring from Italy">
+    <title>Italian Wishlist 🇮🇹</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css for subtle animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #009246;
+            --secondary-color: #CE2B37;
+            --accent-color: #F1F2F6;
+            --text-dark: #2C3E50;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --card-hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+        
+        h1 {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-weight: 300;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+        }
+        
+        .flag-emoji {
+            font-size: 2.5rem;
+            display: inline-block;
+            animation: wave 2s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+        
+        .wishlist-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        
+        .item-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-description {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .item-link {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .item-link:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: rgba(206, 43, 55, 0.9);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 576px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            header {
+                padding: 1.5rem 1rem;
+                border-radius: 15px;
+            }
+            
+            .wishlist-item {
+                padding: 1.2rem;
+            }
+            
+            .item-icon {
+                font-size: 2rem;
+            }
+            
+            .item-name {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Smooth scroll for better UX */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="animate__animated animate__fadeInDown">
+            <span class="flag-emoji">🇮🇹</span>
+            <h1>Italian Wishlist</h1>
+            <p class="subtitle">Cose da portare dall'Italia</p>
+        </header>
+        
+        <div id="wishlist-container">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading wishlist...</p>
+            </div>
+        </div>
+        
+        <footer class="animate__animated animate__fadeIn animate__delay-1s">
+            <p>Made with ❤️ and a bit of nostalgia</p>
+        </footer>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script>
+        // Fetch and display wishlist items
+        async function loadWishlist() {
+            const container = document.getElementById('wishlist-container');
+            
+            try {
+                const response = await fetch('items.json');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load wishlist items');
+                }
+                
+                const data = await response.json();
+                const items = data.items || [];
+                
+                if (items.length === 0) {
+                    container.innerHTML = '<div class="error">No items found in the wishlist.</div>';
+                    return;
+                }
+                
+                // Clear loading state
+                container.innerHTML = '';
+                
+                // Create item cards with staggered animation
+                items.forEach((item, index) => {
+                    const itemCard = createItemCard(item, index);
+                    container.appendChild(itemCard);
+                });
+                
+            } catch (error) {
+                console.error('Error loading wishlist:', error);
+                container.innerHTML = `
+                    <div class="error animate__animated animate__shakeX">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Oops! Could not load the wishlist.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Create a card for a wishlist item
+        function createItemCard(item, index) {
+            const card = document.createElement('div');
+            card.className = 'wishlist-item animate__animated animate__fadeInUp';
+            card.style.animationDelay = `${index * 0.1}s`;
+            
+            const icon = item.icon || 'fa-gift';
+            const name = item.name || 'Unknown Item';
+            const description = item.description || '';
+            const link = item.link || '';
+            
+            card.innerHTML = `
+                <div class="item-header">
+                    <i class="item-icon ${icon}"></i>
+                    <div class="item-content">
+                        <div class="item-name">${escapeHtml(name)}</div>
+                    </div>
+                </div>
+                ${description ? `<p class="item-description">${escapeHtml(description)}</p>` : ''}
+                ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="item-link">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </a>` : ''}
+            `;
+            
+            return card;
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Load wishlist on page load
+        document.addEventListener('DOMContentLoaded', loadWishlist);
+    </script>
+</body>
+</html>

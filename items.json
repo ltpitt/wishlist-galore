@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "name": "Parmigiano Reggiano DOP",
+      "description": "Autentico Parmigiano Reggiano stagionato 24 mesi. Per favore prendi quello buono dal mercato locale!",
+      "icon": "fa-solid fa-cheese",
+      "link": "https://en.wikipedia.org/wiki/Parmesan"
+    },
+    {
+      "name": "Caffè Lavazza",
+      "description": "Le cialde o la polvere della Qualità Oro. Mi manca tantissimo il vero caffè italiano!",
+      "icon": "fa-solid fa-mug-hot",
+      "link": "https://www.lavazza.com"
+    },
+    {
+      "name": "Nutella (quella italiana)",
+      "description": "La versione italiana è più buona, fidati! Prendi il formato grande da 750g.",
+      "icon": "fa-solid fa-jar",
+      "link": "https://www.nutella.com"
+    },
+    {
+      "name": "Pasta di Gragnano IGP",
+      "description": "Pasta artigianale di Gragnano, magari alcuni pacchi di diversi formati (spaghetti, penne, fusilli).",
+      "icon": "fa-solid fa-bowl-food",
+      "link": "https://www.pastadigragnano.org"
+    },
+    {
+      "name": "Amaretti di Saronno",
+      "description": "I biscotti alle mandorle che mi piacciono tanto! Prendi la scatola classica rossa.",
+      "icon": "fa-solid fa-cookie-bite",
+      "link": "https://www.amarettidichiostri.com"
+    },
+    {
+      "name": "Olio Extra Vergine d'Oliva",
+      "description": "Olio extravergine di oliva toscano o pugliese, quello che trovi di buona qualità. Una bottiglia da 1L va benissimo.",
+      "icon": "fa-solid fa-bottle-droplet",
+      "link": "https://en.wikipedia.org/wiki/Olive_oil"
+    },
+    {
+      "name": "Baci Perugina",
+      "description": "I cioccolatini con le nocciole e i messaggi romantici dentro. Una scatola grande, per favore!",
+      "icon": "fa-solid fa-heart",
+      "link": "https://www.baciperugina.com"
+    },
+    {
+      "name": "Aceto Balsamico di Modena",
+      "description": "Aceto balsamico di Modena IGP, non troppo costoso ma di buona qualità per condire le insalate.",
+      "icon": "fa-solid fa-wine-bottle",
+      "link": "https://en.wikipedia.org/wiki/Balsamic_vinegar"
+    },
+    {
+      "name": "Taralli Pugliesi",
+      "description": "Taralli classici o al rosmarino, quelli croccanti per l'aperitivo. Prendine qualche pacco!",
+      "icon": "fa-solid fa-ring",
+      "link": "https://en.wikipedia.org/wiki/Taralli"
+    },
+    {
+      "name": "Limoncello",
+      "description": "Una bottiglia di limoncello di Sorrento o della Costiera Amalfitana. Da tenere in freezer!",
+      "icon": "fa-solid fa-lemon",
+      "link": "https://en.wikipedia.org/wiki/Limoncello"
+    }
+  ]
+}
