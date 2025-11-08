@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="My Italian Wishlist - Items to bring from Italy">
-    <title>Italian Wishlist 🇮🇹</title>
+    <meta name="description" content="Lista della Spesa dall'Italia - Cosa portare e cosa non portare">
+    <title>Lista della Spesa 🇮🇹</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,145 +20,368 @@
     
     <style>
         :root {
-            --primary-color: #009246;
-            --secondary-color: #CE2B37;
+            --primary-color: #34C759;
+            --primary-dark: #28A745;
+            --secondary-color: #FF3B30;
+            --secondary-dark: #D32F2F;
             --accent-color: #F1F2F6;
-            --text-dark: #2C3E50;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            --card-hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+            --text-dark: #1C1C1E;
+            --text-secondary: #8E8E93;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F2F2F7;
+            --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-secondary);
             min-height: 100vh;
-            padding: 1rem;
+            padding: 0;
+            margin: 0;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
+            padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 16px) env(safe-area-inset-left, 16px);
         }
         
         header {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem 1rem;
+            background: var(--bg-primary);
+            margin: 0 -16px 1rem;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
         }
         
         h1 {
             color: var(--text-dark);
             font-weight: 700;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            margin-bottom: 0.5rem;
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
-            color: #7f8c8d;
-            font-weight: 300;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: clamp(0.875rem, 3vw, 0.9375rem);
         }
         
         .flag-emoji {
-            font-size: 2.5rem;
+            font-size: 2rem;
             display: inline-block;
-            animation: wave 2s ease-in-out infinite;
+            margin-bottom: 0.5rem;
         }
         
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(15deg); }
-            75% { transform: rotate(-15deg); }
+        .progress-bar-container {
+            margin: 1rem 0 0.5rem;
+            padding: 0 1rem;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-text {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .progress-percentage {
+            font-size: 0.8125rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .progress-bar-bg {
+            height: 6px;
+            background: #E5E5EA;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 10px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
         }
         
         .wishlist-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
             box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary-color);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            position: relative;
+            overflow: hidden;
         }
         
-        .wishlist-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-hover-shadow);
+        .wishlist-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+        
+        .wishlist-item.checked {
+            background: var(--bg-secondary);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+        }
+        
+        .wishlist-item.checked::before {
+            opacity: 0.3;
+        }
+        
+        .wishlist-item.checked .item-name {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+        
+        .wishlist-item.checked .item-description {
+            opacity: 0.5;
+        }
+        
+        .wishlist-item.checked .item-icon {
+            opacity: 0.4;
         }
         
         .item-icon {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 0;
             display: inline-block;
+            transition: opacity 0.2s;
         }
         
         .item-header {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            align-items: flex-start;
+            gap: 0.875rem;
+            margin-bottom: 0.75rem;
         }
         
         .item-content {
             flex: 1;
+            min-width: 0;
         }
         
         .item-name {
-            font-size: 1.4rem;
+            font-size: 1.0625rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.375rem;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            transition: all 0.2s;
         }
         
         .item-description {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+            transition: opacity 0.2s;
         }
         
         .item-link {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
             background: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 20px;
             font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 0.8125rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
         }
         
         .item-link:hover {
-            background: var(--secondary-color);
+            background: var(--primary-dark);
             color: white;
-            transform: scale(1.05);
+            transform: scale(1.02);
+        }
+        
+        .item-link:active {
+            transform: scale(0.98);
+        }
+        
+        /* Modern iOS-style toggle switch */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            user-select: none;
+            min-height: 44px;
+        }
+        
+        .checkbox-label {
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 51px;
+            height: 31px;
+            flex-shrink: 0;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E5E5EA;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 31px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 27px;
+            width: 27px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .toggle-switch input:active + .toggle-slider:before {
+            width: 32px;
+        }
+        
+        /* Segmented control style tabs */
+        .nav-tabs {
+            border: none;
+            margin-bottom: 1rem;
+            padding: 0 16px;
+            display: flex;
+            gap: 0;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 4px;
+        }
+        
+        .nav-tabs .nav-link {
+            flex: 1;
+            text-align: center;
+            color: var(--text-dark);
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0.625rem 1rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--text-dark);
+            background: var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tab-content {
+            padding: 0 16px;
+        }
+        
+        .list-not-to-bring .wishlist-item::before {
+            background: var(--secondary-color);
+        }
+        
+        .list-not-to-bring .item-icon {
+            color: var(--secondary-color);
+        }
+        
+        .list-not-to-bring .item-link {
+            background: var(--secondary-color);
+        }
+        
+        .list-not-to-bring .item-link:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .list-not-to-bring .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--secondary-color);
         }
         
         .loading {
             text-align: center;
-            padding: 3rem;
-            color: white;
-            font-size: 1.2rem;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
         
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-secondary);
+            border-top: 3px solid var(--primary-color);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
             margin: 1rem auto;
         }
         
@@ -168,43 +391,62 @@
         }
         
         .error {
-            background: rgba(206, 43, 55, 0.9);
+            background: var(--secondary-color);
             color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
+            padding: 1rem;
+            border-radius: 12px;
             text-align: center;
             margin: 1rem 0;
+            font-size: 0.9375rem;
         }
         
         footer {
             text-align: center;
-            padding: 2rem 1rem;
-            color: white;
-            font-size: 0.9rem;
-            opacity: 0.9;
+            padding: 2rem 1rem 3rem;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
         }
         
         /* Mobile optimizations */
         @media (max-width: 576px) {
-            body {
-                padding: 0.5rem;
+            .container {
+                padding-left: 12px;
+                padding-right: 12px;
             }
             
             header {
-                padding: 1.5rem 1rem;
-                border-radius: 15px;
+                padding: 1.25rem 1rem 0.875rem;
+                margin: 0 -12px 0.875rem;
+            }
+            
+            .tab-content {
+                padding: 0 12px;
+            }
+            
+            .nav-tabs {
+                padding: 3px;
+                margin: 0 12px 0.875rem;
+            }
+            
+            .progress-bar-container {
+                padding: 0 12px;
             }
             
             .wishlist-item {
-                padding: 1.2rem;
+                padding: 0.875rem;
+                margin-bottom: 0.625rem;
             }
             
             .item-icon {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
             
             .item-name {
-                font-size: 1.2rem;
+                font-size: 1rem;
+            }
+            
+            .item-description {
+                font-size: 0.8125rem;
             }
         }
         
@@ -212,25 +454,70 @@
         html {
             scroll-behavior: smooth;
         }
+        
+        /* Pull to refresh indicator (visual only) */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                overscroll-behavior-y: contain;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="animate__animated animate__fadeInDown">
+        <header>
             <span class="flag-emoji">🇮🇹</span>
-            <h1>Italian Wishlist</h1>
-            <p class="subtitle">Cose da portare dall'Italia</p>
+            <h1>Lista della Spesa dall'Italia</h1>
+            <p class="subtitle">Cosa portare e cosa lasciare a casa</p>
         </header>
         
-        <div id="wishlist-container">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading wishlist...</p>
+        <!-- Tabs for switching between lists -->
+        <ul class="nav nav-tabs" id="wishlistTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="to-bring-tab" data-bs-toggle="tab" data-bs-target="#to-bring" type="button" role="tab">
+                    ✅ Da Portare
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="not-to-bring-tab" data-bs-toggle="tab" data-bs-target="#not-to-bring" type="button" role="tab">
+                    ⛔ Da NON Portare
+                </button>
+            </li>
+        </ul>
+        
+        <!-- Progress indicator -->
+        <div class="progress-bar-container" id="progress-container" style="display: none;">
+            <div class="progress-info">
+                <span class="progress-text" id="progress-text">0 di 0 completati</span>
+                <span class="progress-percentage" id="progress-percentage">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <!-- Tab content -->
+        <div class="tab-content" id="wishlistTabContent">
+            <div class="tab-pane fade show active" id="to-bring" role="tabpanel">
+                <div id="to-bring-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Caricamento lista...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="not-to-bring" role="tabpanel">
+                <div id="not-to-bring-container" class="list-not-to-bring">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Caricamento lista...</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <footer class="animate__animated animate__fadeIn animate__delay-1s">
-            <p>Made with ❤️ and a bit of nostalgia</p>
+            <p>Fatto con ❤️ e un po' di nostalgia</p>
         </footer>
     </div>
     
@@ -239,71 +526,156 @@
     
     <!-- Main JavaScript -->
     <script>
-        // Fetch and display wishlist items
-        async function loadWishlist() {
-            const container = document.getElementById('wishlist-container');
+        let currentListType = 'to-bring';
+        let itemsData = { 'to-bring': [], 'not-to-bring': [] };
+        let listsLoaded = { 'to-bring': false, 'not-to-bring': false };
+        
+        // Load and display both wishlists
+        async function loadWishlist(jsonFile, containerId, listType) {
+            const container = document.getElementById(containerId);
             
             try {
-                const response = await fetch('items.json');
+                const response = await fetch(jsonFile);
                 
                 if (!response.ok) {
-                    throw new Error('Failed to load wishlist items');
+                    throw new Error('Impossibile caricare gli elementi');
                 }
                 
                 const data = await response.json();
                 const items = data.items || [];
+                itemsData[listType] = items;
+                listsLoaded[listType] = true;
                 
                 if (items.length === 0) {
-                    container.innerHTML = '<div class="error">No items found in the wishlist.</div>';
+                    container.innerHTML = '<div class="error">Nessun elemento trovato nella lista.</div>';
                     return;
                 }
                 
                 // Clear loading state
                 container.innerHTML = '';
                 
-                // Create item cards with staggered animation
+                // Create item cards
                 items.forEach((item, index) => {
-                    const itemCard = createItemCard(item, index);
+                    const itemCard = createItemCard(item, index, listType);
                     container.appendChild(itemCard);
                 });
                 
+                // Update progress for current list if this is the active list
+                if (listType === currentListType) {
+                    updateProgress(listType);
+                }
+                
             } catch (error) {
-                console.error('Error loading wishlist:', error);
+                console.error('Errore nel caricamento della lista:', error);
                 container.innerHTML = `
-                    <div class="error animate__animated animate__shakeX">
+                    <div class="error">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <p>Oops! Could not load the wishlist.</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
+                        <p>Oops! Impossibile caricare la lista.</p>
+                        <p style="font-size: 0.8125rem; margin-top: 0.5rem; opacity: 0.8;">${error.message}</p>
                     </div>
                 `;
             }
         }
         
         // Create a card for a wishlist item
-        function createItemCard(item, index) {
+        function createItemCard(item, index, listType) {
             const card = document.createElement('div');
-            card.className = 'wishlist-item animate__animated animate__fadeInUp';
-            card.style.animationDelay = `${index * 0.1}s`;
+            card.className = 'wishlist-item';
+            card.style.animationDelay = `${index * 0.05}s`;
             
             const icon = item.icon || 'fa-gift';
-            const name = item.name || 'Unknown Item';
+            const name = item.name || 'Elemento Sconosciuto';
             const description = item.description || '';
             const link = item.link || '';
+            
+            // Generate unique ID for the item based on list type and name
+            const itemId = `${listType}-${name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}`;
+            
+            // Check if item is already checked in localStorage
+            const isChecked = localStorage.getItem(itemId) === 'true';
+            if (isChecked) {
+                card.classList.add('checked');
+            }
+            
+            const checkboxLabel = listType === 'to-bring' ? 'Portato' : 'Ricordato';
             
             card.innerHTML = `
                 <div class="item-header">
                     <i class="item-icon ${icon}"></i>
                     <div class="item-content">
                         <div class="item-name">${escapeHtml(name)}</div>
+                        ${description ? `<p class="item-description">${escapeHtml(description)}</p>` : ''}
                     </div>
                 </div>
-                ${description ? `<p class="item-description">${escapeHtml(description)}</p>` : ''}
                 ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="item-link">
-                    <i class="fas fa-external-link-alt"></i> View Details
+                    <i class="fas fa-external-link-alt"></i> Scopri di più
                 </a>` : ''}
+                <div class="checkbox-container" data-item-id="${itemId}">
+                    <label for="${itemId}" class="checkbox-label">
+                        ${checkboxLabel}
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
             `;
             
+            // Add checkbox event listener
+            const checkboxContainer = card.querySelector('.checkbox-container');
+            const checkbox = card.querySelector(`#${itemId}`);
+            
+            checkboxContainer.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    checkbox.checked = !checkbox.checked;
+                    handleCheckboxChange(checkbox, card, itemId, listType);
+                }
+            });
+            
+            checkbox.addEventListener('change', function(e) {
+                e.stopPropagation();
+                handleCheckboxChange(this, card, itemId, listType);
+            });
+            
             return card;
+        }
+        
+        // Handle checkbox state change
+        function handleCheckboxChange(checkbox, card, itemId, listType) {
+            if (checkbox.checked) {
+                card.classList.add('checked');
+                localStorage.setItem(itemId, 'true');
+            } else {
+                card.classList.remove('checked');
+                localStorage.setItem(itemId, 'false');
+            }
+            updateProgress(listType);
+        }
+        
+        // Update progress bar
+        function updateProgress(listType) {
+            const items = itemsData[listType];
+            if (!items || items.length === 0) return;
+            
+            const checkedCount = items.filter(item => {
+                const itemId = `${listType}-${item.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}`;
+                return localStorage.getItem(itemId) === 'true';
+            }).length;
+            
+            const totalCount = items.length;
+            const percentage = Math.round((checkedCount / totalCount) * 100);
+            
+            const progressContainer = document.getElementById('progress-container');
+            const progressText = document.getElementById('progress-text');
+            const progressPercentage = document.getElementById('progress-percentage');
+            const progressFill = document.getElementById('progress-fill');
+            
+            if (progressContainer) {
+                progressContainer.style.display = 'block';
+                progressText.textContent = `${checkedCount} di ${totalCount} completati`;
+                progressPercentage.textContent = `${percentage}%`;
+                progressFill.style.width = `${percentage}%`;
+            }
         }
         
         // Escape HTML to prevent XSS
@@ -313,8 +685,30 @@
             return div.innerHTML;
         }
         
-        // Load wishlist on page load
-        document.addEventListener('DOMContentLoaded', loadWishlist);
+        // Handle tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load both wishlists
+            loadWishlist('items.json', 'to-bring-container', 'to-bring');
+            loadWishlist('items-not-to-bring.json', 'not-to-bring-container', 'not-to-bring');
+            
+            // Add tab click handlers
+            const toBringTab = document.getElementById('to-bring-tab');
+            const notToBringTab = document.getElementById('not-to-bring-tab');
+            
+            if (toBringTab) {
+                toBringTab.addEventListener('click', function() {
+                    currentListType = 'to-bring';
+                    setTimeout(() => updateProgress('to-bring'), 100);
+                });
+            }
+            
+            if (notToBringTab) {
+                notToBringTab.addEventListener('click', function() {
+                    currentListType = 'not-to-bring';
+                    setTimeout(() => updateProgress('not-to-bring'), 100);
+                });
+            }
+        });
     </script>
 </body>
 </html>

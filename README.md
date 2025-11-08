@@ -1,45 +1,50 @@
 # wishlist-galore 🇮🇹
 
-In this repo I keep my wishlists
+In questo repository conservo le mie liste della spesa
 
-## Italian Wishlist
+## Lista della Spesa dall'Italia
 
-A beautiful, mobile-first single-page application to display items to bring from Italy.
+Una bellissima applicazione single-page, mobile-first, per visualizzare cosa portare (e cosa NON portare) dall'Italia.
 
-### Features
+### Funzionalità
 
-- 📱 **Mobile-First Design**: Fully responsive and optimized for all devices
-- 🎨 **Modern UI**: Beautiful gradient background with card-based layout
-- ✨ **Smooth Animations**: Subtle animations using Animate.css
-- 🔄 **Dynamic Content**: Items loaded from external JSON file
-- 🎯 **Font Awesome Icons**: Visual icons for each item
-- 🔗 **External Links**: Direct links to more information about each item
+- 📱 **Design Mobile-First**: Completamente responsive e ottimizzato per tutti i dispositivi
+- 🎨 **UI Moderna**: Bellissimo sfondo sfumato con layout a card
+- ✨ **Animazioni Fluide**: Animazioni sottili usando Animate.css
+- 🔄 **Contenuto Dinamico**: Elementi caricati da file JSON esterni
+- 🎯 **Icone Font Awesome**: Icone visive per ogni elemento
+- 🔗 **Link Esterni**: Link diretti per maggiori informazioni su ogni elemento
+- ✅ **Liste Doppie**: Due liste separate - una per cosa portare e una per cosa NON portare
+- 💾 **Persistenza Locale**: Le checkbox salvano automaticamente il loro stato in localStorage
+- 🎯 **Navigazione a Tab**: Interfaccia intuitiva per passare tra le due liste
 
-### How to Use
+### Come Usare
 
-1. Open `index.html` in a web browser
-2. Items are automatically loaded from `items.json`
+1. Apri `index.html` in un browser web
+2. Gli elementi sono caricati automaticamente da `items.json` e `items-not-to-bring.json`
+3. Usa le tab per passare tra "Da Portare" e "Da NON Portare"
+4. Spunta le checkbox per marcare gli elementi - lo stato viene salvato automaticamente
 
-### How to Update Items
+### Come Aggiornare gli Elementi
 
-Edit the `items.json` file to add, remove, or modify items. Each item follows this structure:
+Modifica i file `items.json` o `items-not-to-bring.json` per aggiungere, rimuovere o modificare elementi. Ogni elemento segue questa struttura:
 
 ```json
 {
-  "name": "Item Name",
-  "description": "Item description in any language",
+  "name": "Nome Elemento",
+  "description": "Descrizione dell'elemento in qualsiasi lingua",
   "icon": "fa-solid fa-icon-name",
   "link": "https://example.com"
 }
 ```
 
-**Finding Font Awesome Icons:**
-Browse available icons at [Font Awesome](https://fontawesome.com/icons) and use the class name (e.g., `fa-solid fa-heart`)
+**Trovare Icone Font Awesome:**
+Sfoglia le icone disponibili su [Font Awesome](https://fontawesome.com/icons) e usa il nome della classe (es. `fa-solid fa-heart`)
 
-### Technologies Used
+### Tecnologie Usate
 
-- **Bootstrap 5.3.2**: Responsive grid and utilities
-- **Font Awesome 6.4.2**: Icon library
-- **Animate.css**: Animation library
-- **Google Fonts (Poppins)**: Typography
-- **Vanilla JavaScript**: Dynamic content loading
+- **Bootstrap 5.3.2**: Griglia responsive e utilità
+- **Font Awesome 6.4.2**: Libreria di icone
+- **Animate.css**: Libreria di animazioni
+- **Google Fonts (Poppins)**: Tipografia
+- **Vanilla JavaScript**: Caricamento dinamico del contenuto e gestione localStorage
